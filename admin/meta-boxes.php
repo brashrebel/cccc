@@ -1,40 +1,40 @@
 <?php
    
-$prefix = 'kjm_';
+$prefix = 'cc_';
 
-$meta_box = array(
-    'id' => 'service-meta',
-    'title' => 'Service details',
-    'page' => 'service',
+/*-----------------
+Add casters meta box
+------------------*/
+$casters_meta_box = array(
+    'id' => 'casters-meta',
+    'title' => 'Caster details',
+    'page' => 'casters',
     'context' => 'normal',
     'priority' => 'high'
 );
 
+add_action('add_meta_boxes_page', 'casters_meta_box' );
 
-add_action('admin_menu', 'kjm_add_box');
-
-// Add meta box
-function kjm_add_box() {
-    global $meta_box;
-    add_meta_box($meta_box['id'], $meta_box['title'], 'kjm_service_box', $meta_box['page'], $meta_box['context'], $meta_box['priority']);
-    
-}
-    add_action('admin_enqueue_scripts', 'print_styles');
-    add_action('wp_enqueue_scripts', 'print_styles');
-	function print_styles() {
-		global $post_type;
-        if ($post_type == 'service' || is_singular('service')) :		
-        wp_enqueue_style("powerbarn", plugins_url("/style.css", __FILE__), FALSE); 
-		endif;
-}
-function wpse_80236_Colorpicker(){ 
-        global $post_type;
-        if ($post_type == 'service') :       
-    wp_enqueue_style( 'wp-color-picker');
-    wp_enqueue_script( 'wp-color-picker');
-    endif;
-
+function casters_meta_box( $post ) {
+    global $casters_meta_box;
+    add_meta_box($casters_meta_box['id'], $casters_meta_box['title'], 'casters_box', $casters_meta_box['page'], $casters_meta_box['context'], $casters_meta_box['priority']);
 }
 
-add_action('admin_enqueue_scripts', 'wpse_80236_Colorpicker');
+/*-----------------
+Add wheels meta box
+------------------*/
+$wheels_meta_box = array(
+    'id' => 'wheels-meta',
+    'title' => 'Wheels details',
+    'page' => 'wheels',
+    'context' => 'normal',
+    'priority' => 'high'
+);
+
+add_action('add_meta_boxes_page', 'wheels_meta_box' );
+
+function wheels_meta_box( $post ) {
+    global $wheels_meta_box;
+    add_meta_box($wheels_meta_box['id'], $wheels_meta_box['title'], 'wheels_box', $wheels_meta_box['page'], $wheels_meta_box['context'], $wheels_meta_box['priority']);
+}
 ?>
