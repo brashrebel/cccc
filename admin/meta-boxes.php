@@ -13,7 +13,7 @@ $casters_meta_box = array(
     'priority' => 'high'
 );
 
-add_action('add_meta_boxes_page', 'casters_meta_box' );
+add_action('add_meta_boxes', 'casters_meta_box' );
 
 function casters_meta_box( $post ) {
     global $casters_meta_box;
@@ -31,7 +31,7 @@ $wheels_meta_box = array(
     'priority' => 'high'
 );
 
-add_action('add_meta_boxes_page', 'wheels_meta_box' );
+add_action('add_meta_boxes', 'wheels_meta_box' );
 
 function wheels_meta_box( $post ) {
     global $wheels_meta_box;

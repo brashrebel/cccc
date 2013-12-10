@@ -18,7 +18,7 @@ function register_cpt_caster() {
         'not_found' => _x( 'No casters found', 'caster' ),
         'not_found_in_trash' => _x( 'No casters found in Trash', 'caster' ),
         'parent_item_colon' => _x( 'Parent caster:', 'caster' ),
-        'menu_name' => _x( 'casters', 'caster' ),
+        'menu_name' => _x( 'Casters', 'caster' ),
     );
 
     $args = array( 
@@ -42,7 +42,7 @@ function register_cpt_caster() {
         'capability_type' => 'post'
     );
 
-    register_post_type( 'caster', $args );
+    register_post_type( 'casters', $args );
 }
 
 function change_caster_title( $title ){
@@ -73,7 +73,7 @@ function register_cpt_wheel() {
         'not_found' => _x( 'No wheels found', 'wheel' ),
         'not_found_in_trash' => _x( 'No wheels found in Trash', 'wheel' ),
         'parent_item_colon' => _x( 'Parent wheel:', 'wheel' ),
-        'menu_name' => _x( 'wheels', 'wheel' ),
+        'menu_name' => _x( 'Wheels', 'wheel' ),
     );
 
     $args = array( 
@@ -97,7 +97,7 @@ function register_cpt_wheel() {
         'capability_type' => 'post'
     );
 
-    register_post_type( 'wheel', $args );
+    register_post_type( 'wheels', $args );
 }
 
 function change_wheel_title( $title ){
