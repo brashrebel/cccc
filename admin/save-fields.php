@@ -27,8 +27,10 @@ function casters_meta_box_save( $post_id ) {
     );  
       
     // Make sure your data is set before trying to save it  
-    if( isset( $_POST['cccc_text'] ) )  
-        update_post_meta( $post_id, 'cccc_text', wp_kses( $_POST['cccc_text'], $allowed ) ); 
+    if( isset( $_POST['cccc_img'] ) )  
+        update_post_meta( $post_id, 'cccc_img', wp_kses( $_POST['cccc_img'], $allowed ) );
+    if( isset( $_POST['cccc_series'] ) )  
+        update_post_meta( $post_id, 'cccc_series', wp_kses( $_POST['cccc_series'], $allowed ) ); 
 }  
 
 ?>
