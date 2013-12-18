@@ -68,7 +68,8 @@ function casters_capacity( $post ) {
     ?>  
 <p>
     <label for="cccc_capacity">Enter the capcity for the Caster (in lbs)</label>
-    <input type="text" name="cccc_capacity" id="cccc_capacity" value="<?php echo $cccc_capacity; ?>" />
+    <input type="text" name="cccc_capacity" id="cccc_capacity" value="<?php echo $cccc_capacity; ?>" /><br/>
+    <span class="description">Whatever format desired. Standard would be with comma (##,###).
 </p>
 <?php
 }
@@ -181,7 +182,8 @@ function wheels_capacity( $post ) {
     ?>  
 <p>
     <label for="cccc_capacity">Enter the capcity for the wheel (in lbs)</label>
-    <input type="text" name="cccc_capacity" id="cccc_capacity" value="<?php echo $cccc_capacity; ?>" />
+    <input type="text" name="cccc_capacity" id="cccc_capacity" value="<?php echo $cccc_capacity; ?>" /><br/>
+    <span class="description">Whatever format desired. Standard would be with comma (##,###).
 </p>
 <?php
 }

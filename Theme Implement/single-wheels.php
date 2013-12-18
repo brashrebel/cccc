@@ -59,7 +59,11 @@
         
         <?php the_content(); ?>
 
-        <div id="table"><?php do_shortcode('[table id='.$table.' /]'); ?></div>
+        <script type="text/javascript">
+        console.log(<?php echo $table; ?>);
+        </script>
+
+        <div id="table"><?php echo do_shortcode('[table id='.$table.' /]'); ?></div>
 
         <div id="cccc-footer">
           <p><i>For further information or a quote please contact us at <a href="mailto:sales@casterconcepts.com">sales@casterconcepts.com</a> or call 517-629-8838</i></p>
