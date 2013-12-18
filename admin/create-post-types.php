@@ -31,14 +31,13 @@ function register_cpt_caster() {
         'show_ui' => true,
         'show_in_menu' => true,
         'menu_position' => 50,
-        
+        'rewrite' => array('slug' =>'caster-temp'),
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
         'exclude_from_search' => false,
         'has_archive' => false,
         'query_var' => true,
         'can_export' => true,
-        'rewrite' => true,
         'capability_type' => 'post'
     );
 
@@ -96,7 +95,7 @@ function wpt_portfolio_icons() {
             background: url(http://www.race-find.com/ccdev/wp-content/plugins/cccc/images/admin-small.png) no-repeat 6px 3px !important;
         }
     #menu-posts-wheels:hover .wp-menu-image, #menu-posts-wheels.wp-has-current-submenu .wp-menu-image {
-            background-position:6px -22px !important;
+            background-position:6px -23px !important;
         }
     #icon-edit.icon32-posts-wheels {
         /*background: url(<?php echo $plugin_path; ?>/images/admin-big.png) no-repeat;*/
@@ -137,14 +136,13 @@ function register_cpt_wheel() {
         'show_ui' => true,
         'show_in_menu' => true,
         'menu_position' => 55,
-        
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
         'exclude_from_search' => false,
         'has_archive' => false,
         'query_var' => true,
         'can_export' => true,
-        'rewrite' => true,
+        'rewrite' => array('slug' => 'caster-wheels'),
         'capability_type' => 'post'
     );
 

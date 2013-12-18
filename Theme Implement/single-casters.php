@@ -1,26 +1,6 @@
 <?php get_header(); ?>
 
-
-<div class="container">
-
-  <div id="topFrame"></div>
-  <div class="frame">
-    <h1><?php the_title();?></h1>
-  </div>
-  <div id="bottomFrame"></div>
-  <div id="bottomFrameBottom"></div>
-
-</div><!--Container-->
-
-<div id="main">
-
-  <?php if(have_posts()):?>
-
-  <div id="content">
-
-    <?php dynamic_sidebar('sharebar'); ?>
-    
-    <?php while(have_posts()): the_post();?>
+<?php while(have_posts()): the_post();?>
 
       <?php 
       $img = get_post_meta(get_the_ID(), 'cccc_img', true);
@@ -31,6 +11,31 @@
       $desc3 = get_post_meta(get_the_ID(), 'cccc_desc3', true);
       $series = get_post_meta(get_the_ID(), 'cccc_series', true); 
       ?>
+
+  <div class="container">
+
+    <div id="topFrame"></div>
+    <div class="frame">
+      <h1><?php the_title();?></h1>
+      <div class="description">
+        <ul>
+          <li><?php echo $desc1; ?></li>
+          <li><?php echo $desc2; ?></li>
+          <li><?php echo $desc3; ?></li>
+        </ul>
+      </div>
+    </div>
+    <div id="bottomFrame"></div>
+    <div id="bottomFrameBottom"></div>
+
+  </div><!--Container-->
+
+  <div id="main">
+
+    <div id="content">
+
+    <?php dynamic_sidebar('sharebar'); ?>
+    
       <?php if (!$img || !$archive_img || !$capacity || !$series || !$desc1 || !$desc2 || !$desc3): ?>
         <p style="color:#f00;font-size:20px;"><strong>Please correct the following errors</strong></p>
         <?php if (!$img): ?>
@@ -75,18 +80,7 @@
 
   </div><!--Content-->
 
-  <?php else: ?>
-
-  <div id="content">
-    <h1>Not Found</h1>
-    <p>Sorry, but you are looking for something that isn't here.</p>
-  </div>
-
-  <?php endif;?>
-
-  <div id="sidebar">
-    <?php dynamic_sidebar("main"); ?>
-  </div>
+  <?php get_sidebar(); ?>
   
 </div><!--Main-->
 
