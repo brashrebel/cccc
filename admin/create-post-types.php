@@ -7,18 +7,18 @@ add_action( 'init', 'register_cpt_caster' );
 function register_cpt_caster() {
 
     $labels = array( 
-        'name' => _x( 'Casters', 'caster' ),
-        'singular_name' => _x( 'caster', 'caster' ),
-        'add_new' => _x( 'Add New', 'caster' ),
-        'add_new_item' => _x( 'Add New caster', 'caster' ),
-        'edit_item' => _x( 'Edit caster', 'caster' ),
-        'new_item' => _x( 'New caster', 'caster' ),
-        'view_item' => _x( 'View caster', 'caster' ),
-        'search_items' => _x( 'Search casters', 'caster' ),
-        'not_found' => _x( 'No casters found', 'caster' ),
-        'not_found_in_trash' => _x( 'No casters found in Trash', 'caster' ),
-        'parent_item_colon' => _x( 'Parent caster:', 'caster' ),
-        'menu_name' => _x( 'Casters', 'caster' ),
+        'name' => _x( 'Casters', 'Caster' ),
+        'singular_name' => _x( 'Caster', 'Caster' ),
+        'add_new' => _x( 'Add New', 'Caster' ),
+        'add_new_item' => _x( 'Add New Caster', 'Caster' ),
+        'edit_item' => _x( 'Edit Caster', 'Caster' ),
+        'new_item' => _x( 'New Caster', 'Caster' ),
+        'view_item' => _x( 'View Caster', 'Caster' ),
+        'search_items' => _x( 'Search Casters', 'Caster' ),
+        'not_found' => _x( 'No Casters found', 'Caster' ),
+        'not_found_in_trash' => _x( 'No Casters found in Trash', 'Caster' ),
+        'parent_item_colon' => _x( 'Parent Caster:', 'Caster' ),
+        'menu_name' => _x( 'Casters', 'Caster' ),
     );
 
     $args = array( 
@@ -35,7 +35,7 @@ function register_cpt_caster() {
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
         'exclude_from_search' => false,
-        'has_archive' => true,
+        'has_archive' => false,
         'query_var' => true,
         'can_export' => true,
         'rewrite' => true,
@@ -54,6 +54,25 @@ function change_caster_title( $title ){
 }
 add_filter( 'enter_title_here', 'change_caster_title' );
 
+function caster_updated_messages( $messages ) {
+    global $post, $post_ID;
+    $messages['casters'] = array(
+        0 => '', 
+        1 => sprintf( __('Caster updated. <a href="%s">View Caster</a>'), esc_url( get_permalink($post_ID) ) ),
+        2 => __('Custom field updated.'),
+        3 => __('Custom field deleted.'),
+        4 => __('Caster updated.'),
+        5 => isset($_GET['revision']) ? sprintf( __('Caster restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+        6 => sprintf( __('Caster published. <a href="%s">View Caster</a>'), esc_url( get_permalink($post_ID) ) ),
+        7 => __('Caster saved.'),
+        8 => sprintf( __('Caster submitted. <a target="_blank" href="%s">Preview Caster</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+        9 => sprintf( __('Caster scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Caster</a>'), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+        10 => sprintf( __('Caster draft updated. <a target="_blank" href="%s">Preview Wheels</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+    );
+    return $messages;
+}
+add_filter( 'post_updated_messages', 'caster_updated_messages' );
+
 /*------------------------------
 Setup wheels post type
 ------------------------------*/
@@ -62,18 +81,18 @@ add_action( 'init', 'register_cpt_wheel' );
 function register_cpt_wheel() {
 
     $labels = array( 
-        'name' => _x( 'wheels', 'wheel' ),
-        'singular_name' => _x( 'wheel', 'wheel' ),
-        'add_new' => _x( 'Add New', 'wheel' ),
-        'add_new_item' => _x( 'Add New wheel', 'wheel' ),
-        'edit_item' => _x( 'Edit wheel', 'wheel' ),
-        'new_item' => _x( 'New wheel', 'wheel' ),
-        'view_item' => _x( 'View wheel', 'wheel' ),
-        'search_items' => _x( 'Search wheels', 'wheel' ),
-        'not_found' => _x( 'No wheels found', 'wheel' ),
-        'not_found_in_trash' => _x( 'No wheels found in Trash', 'wheel' ),
-        'parent_item_colon' => _x( 'Parent wheel:', 'wheel' ),
-        'menu_name' => _x( 'Wheels', 'wheel' ),
+        'name' => _x( 'Wheels', 'Wheel' ),
+        'singular_name' => _x( 'Wheel', 'Wheel' ),
+        'add_new' => _x( 'Add New', 'Wheel' ),
+        'add_new_item' => _x( 'Add New Wheel', 'Wheel' ),
+        'edit_item' => _x( 'Edit Wheel', 'Wheel' ),
+        'new_item' => _x( 'New Wheel', 'Wheel' ),
+        'view_item' => _x( 'View Wheel', 'Wheel' ),
+        'search_items' => _x( 'Search Wheels', 'Wheel' ),
+        'not_found' => _x( 'No Wheels found', 'Wheel' ),
+        'not_found_in_trash' => _x( 'No Wheels found in Trash', 'Wheel' ),
+        'parent_item_colon' => _x( 'Parent Wheel:', 'Wheel' ),
+        'menu_name' => _x( 'Wheels', 'Wheel' ),
     );
 
     $args = array( 
@@ -90,7 +109,7 @@ function register_cpt_wheel() {
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
         'exclude_from_search' => false,
-        'has_archive' => true,
+        'has_archive' => false,
         'query_var' => true,
         'can_export' => true,
         'rewrite' => true,
@@ -108,5 +127,24 @@ function change_wheel_title( $title ){
      return $title;
 }
 add_filter( 'enter_title_here', 'change_wheel_title' );
+
+function wheel_updated_messages( $messages ) {
+    global $post, $post_ID;
+    $messages['wheels'] = array(
+        0 => '', 
+        1 => sprintf( __('Wheels updated. <a href="%s">View Wheels</a>'), esc_url( get_permalink($post_ID) ) ),
+        2 => __('Custom field updated.'),
+        3 => __('Custom field deleted.'),
+        4 => __('Wheels updated.'),
+        5 => isset($_GET['revision']) ? sprintf( __('Wheels restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+        6 => sprintf( __('Wheels published. <a href="%s">View Wheels</a>'), esc_url( get_permalink($post_ID) ) ),
+        7 => __('Wheels saved.'),
+        8 => sprintf( __('Wheels submitted. <a target="_blank" href="%s">Preview Wheels</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+        9 => sprintf( __('Wheels scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Wheels</a>'), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+        10 => sprintf( __('Wheels draft updated. <a target="_blank" href="%s">Preview Wheels</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+    );
+    return $messages;
+}
+add_filter( 'post_updated_messages', 'wheel_updated_messages' );
 
 ?>

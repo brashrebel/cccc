@@ -29,9 +29,9 @@
       $desc1 = get_post_meta(get_the_ID(), 'cccc_desc1', true);
       $desc2 = get_post_meta(get_the_ID(), 'cccc_desc2', true);
       $desc3 = get_post_meta(get_the_ID(), 'cccc_desc3', true);
-      $series = get_post_meta(get_the_ID(), 'cccc_series', true); 
+      $table = get_post_meta(get_the_ID(), 'cccc_table', true); 
       ?>
-      <?php if (!$img || !$archive_img || !$capacity || !$series || !$desc1 || !$desc2 || !$desc3): ?>
+      <?php if (!$img || !$archive_img || !$capacity || !$desc1 || !$desc2 || !$desc3): ?>
         <p style="color:#f00;font-size:20px;"><strong>Please correct the following errors</strong></p>
         <?php if (!$img): ?>
           <p><b>*Please select an image</b></p>
@@ -42,9 +42,6 @@
         <?php if (!$capacity): ?>
           <p><b>*Please input a capacity</b></p>
         <?php endif; ?>
-        <?php if (!$series): ?>
-          <p><b>*Please a view series link</b></p>
-        <?php endif; ?>
         <?php if (!$desc1 || !$desc2 || !$desc3): ?>
           <p><b>*Please input all 3 description points</b></p>
         <?php endif; ?>
@@ -53,17 +50,16 @@
         <?php if ( function_exists( 'breadcrumb_trail' ) ) breadcrumb_trail(); ?>
         <div style="clear:both;"></div>
 
-        <a class="cccc-button" style="float:left;" href="<?php echo $series; ?>">View Series</a>
-        <a class="cccc-button" style="float:right;" href="/casters">Back to Casters</a>
+        <a class="cccc-button" style="float:left;" href="#table">View Series</a>
+        <a class="cccc-button" style="float:right;" href="/caster-wheels">Back to Wheels</a>
 
         <div style="clear:both;"></div>
 
         <div id="cccc-img"><img src="<?php echo $img; ?>" /></div>
-
+        
         <?php the_content(); ?>
 
-        <p style="text-align:center;font-size:17px;">To view the entire series, click below.</p>
-        <p style="text-align:center;"><a href="<?php echo $series; ?>"><img src="http://www.casterconcepts.com/wp-content/themes/casterconcepts/images/caster-types/table.jpg" /></a></p>
+        <div id="table"><?php do_shortcode('[table id='.$table.' /]'); ?></div>
 
         <div id="cccc-footer">
           <p><i>For further information or a quote please contact us at <a href="mailto:sales@casterconcepts.com">sales@casterconcepts.com</a> or call 517-629-8838</i></p>
