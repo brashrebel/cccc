@@ -13,10 +13,10 @@ $(function(){
 })
 
 function change_caster_wheel(e,name,img,capacity,series,desc1,desc2,desc3,link){
-  $('#caster-wheel-image .mask').css('display','block')
-  $('#caster-wheel-list p').css('color','#000')
-  $(e).css('color','#4dbbe2')
   if ('<a href="'+link+'">'+name+'</a>' != $('#caster-wheel-info .name').html()){
+    $('#caster-wheel-image .mask').css('display','block')
+    $('#caster-wheel-list p').css('color','#000')
+    $(e).css('color','#4dbbe2')
     $('#caster-wheel-info .name').html('<a href="'+link+'">'+name+'</a>')
     $('#caster-wheel-info .desc1').html(desc1)
     $('#caster-wheel-info .desc2').html(desc2)
