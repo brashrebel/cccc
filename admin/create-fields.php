@@ -3,6 +3,7 @@
 Add casters fields
 ------------------*/
 // Callback function to show fields in meta box
+
 function casters_type_or_series( $post ) {
     global $post;
     $values = get_post_custom( $post->ID );  

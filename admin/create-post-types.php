@@ -31,7 +31,7 @@ function register_cpt_caster() {
         'show_ui' => true,
         'show_in_menu' => true,
         'menu_position' => 50,
-        'rewrite' => array('slug' =>'caster-temp'),
+        'rewrite' => array('slug' =>'casters'),
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
         'exclude_from_search' => false,

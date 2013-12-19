@@ -12,7 +12,10 @@ $(function(){
   })
 })
 
-function change_caster_wheel(name,img,capacity,series,desc1,desc2,desc3,link){
+function change_caster_wheel(e,name,img,capacity,series,desc1,desc2,desc3,link){
+  $('#caster-wheel-image .mask').css('display','block')
+  $('#caster-wheel-list p').css('color','#000')
+  $(e).css('color','#4dbbe2')
   if ('<a href="'+link+'">'+name+'</a>' != $('#caster-wheel-info .name').html()){
     $('#caster-wheel-info .name').html('<a href="'+link+'">'+name+'</a>')
     $('#caster-wheel-info .desc1').html(desc1)
@@ -24,8 +27,9 @@ function change_caster_wheel(name,img,capacity,series,desc1,desc2,desc3,link){
 }
 
 function transition(e){
-  var index = $('#caster-wheel-image a').size() - 1;
-  $('#caster-wheel-image a:nth-child('+index+')').animate({top:'-100%'},{duration:500,complete:function(){
+  $('#caster-wheel-image .mask').css('display','none')
+  var index = $('#caster-wheel-image a').length -1;
+  $('#caster-wheel-image a:nth-of-type('+index+')').animate({top:'-100%'},{duration:500,complete:function(){
     $(this).remove()
   }})
   $(e).parent().animate({top:0},500)

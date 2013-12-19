@@ -8,7 +8,9 @@ function casters_shortcode($atts) {
   // Query the custom post type, "casters"
   $casters_query = new WP_Query(array(
     'post_type' => 'casters',
-    'posts_per_page' => -1
+    'posts_per_page' => -1,
+    'order' => 'ASC',
+    'orderby' => 'title'
     )
   ); ?>
 
@@ -47,7 +49,7 @@ function casters_shortcode($atts) {
 
       for($i=1;$i<=$count;$i++){ ?>
     
-        <p class='item <?php echo $casters_array["caster$i"]["type-or-series"]; ?>' onclick="change_caster_wheel('<?php echo $casters_array["caster$i"]["name"]; ?>','<?php echo $casters_array["caster$i"]["image"]; ?>','<?php echo $casters_array["caster$i"]["capacity"]; ?>','<?php echo $casters_array["caster$i"]["series"]; ?>','<?php echo $casters_array["caster$i"]["desc1"]; ?>','<?php echo $casters_array["caster$i"]["desc2"]; ?>','<?php echo $casters_array["caster$i"]["desc3"]; ?>','<?php echo $casters_array["caster$i"]["link"]; ?>')"><?php echo $casters_array["caster$i"]["name"]; ?> <br /><span>click image or title to view</span></p>
+        <p class='item <?php echo $casters_array["caster$i"]["type-or-series"]; ?>' onclick="change_caster_wheel(this,'<?php echo $casters_array["caster$i"]["name"]; ?>','<?php echo $casters_array["caster$i"]["image"]; ?>','<?php echo $casters_array["caster$i"]["capacity"]; ?>','<?php echo $casters_array["caster$i"]["series"]; ?>','<?php echo $casters_array["caster$i"]["desc1"]; ?>','<?php echo $casters_array["caster$i"]["desc2"]; ?>','<?php echo $casters_array["caster$i"]["desc3"]; ?>','<?php echo $casters_array["caster$i"]["link"]; ?>')"><?php echo $casters_array["caster$i"]["name"]; ?> <br /><span>click image or title to view</span></p>
 
       <?php } ?>
 
@@ -56,6 +58,7 @@ function casters_shortcode($atts) {
     <div id="caster-wheel-info">
       
       <div id="caster-wheel-image">
+        <div class="mask">Loading...</div>
         <span class="capacity">MAX CAPACITY: <span style="font-size:150%;"><?php echo $casters_array["caster1"]["capacity"]; ?></span> <sup>lbs</sup></span>
         <a style="position:absolute;top:0;" href='<?php echo $casters_array["caster1"]["link"]; ?>'><img src='<?php echo $casters_array["caster1"]["image"]; ?>' /></a>
       </div>
@@ -74,18 +77,18 @@ function casters_shortcode($atts) {
 
     <!--Show type or series based on shortcode attr query-->
       <?php if($show == 'type'): ?>
-        <script type='text/javascript'>
-          $('#caster-list p.type').css('display','block') 
-          $('#caster-list p.series').css('display','none')
-          $('.caster-display span').css({borderColor:'transparent',color:'#969696'})
-          $('.caster-display span:nth-child(2)').css({borderColor:'#c4c4c4',color:'#000'})
+        <script type="text/javascript">
+          $("#caster-wheel-list p.type").css("display","block") 
+          $("#caster-wheel-list p.series").css("display","none")
+          $(".caster-wheel-display span").css({borderColor:"transparent",color:"#969696"})
+          $(".caster-wheel-display span:nth-child(2)").css({borderColor:"#c4c4c4",color:"#000"})
         </script>
-      <?php elseif($show == 'series'): ?>
-        <script type='text/javascript'>
-          $('#caster-list p.series').css('display','block') 
-          $('#caster-list p.type').css('display','none')
-          $('.caster-display span').css({borderColor:'transparent',color:'#969696'})
-          $('.caster-display span:nth-child(3)').css({borderColor:'#c4c4c4',color:'#000'})
+      <?php elseif($show == "series"): ?>
+        <script type="text/javascript">
+          $("#caster-wheel-list p.series").css("display","block") 
+          $("#caster-wheel-list p.type").css("display","none")
+          $(".caster-wheel-display span").css({borderColor:"transparent",color:"#969696"})
+          $(".caster-wheel-display span:nth-child(3)").css({borderColor:"#c4c4c4",color:"#000"})
         </script>
       <?php endif; ?>
     <!--End-->
@@ -142,7 +145,7 @@ function wheels_shortcode() {
 
       for($i=1;$i<=$count;$i++){ ?>
     
-        <p class='item <?php echo $wheels_array["wheel$i"]["type-or-series"]; ?>' onclick="change_caster_wheel('<?php echo $wheels_array["wheel$i"]["name"]; ?>','<?php echo $wheels_array["wheel$i"]["image"]; ?>','<?php echo $wheels_array["wheel$i"]["capacity"]; ?>','<?php echo $wheels_array["wheel$i"]["series"]; ?>','<?php echo $wheels_array["wheel$i"]["desc1"]; ?>','<?php echo $wheels_array["wheel$i"]["desc2"]; ?>','<?php echo $wheels_array["wheel$i"]["desc3"]; ?>','<?php echo $wheels_array["wheel$i"]["link"]; ?>')"><?php echo $wheels_array["wheel$i"]["name"]; ?> <br /><span>click image or title to view</span></p>
+        <p class='item <?php echo $wheels_array["wheel$i"]["type-or-series"]; ?>' onclick="change_caster_wheel(this,'<?php echo $wheels_array["wheel$i"]["name"]; ?>','<?php echo $wheels_array["wheel$i"]["image"]; ?>','<?php echo $wheels_array["wheel$i"]["capacity"]; ?>','<?php echo $wheels_array["wheel$i"]["series"]; ?>','<?php echo $wheels_array["wheel$i"]["desc1"]; ?>','<?php echo $wheels_array["wheel$i"]["desc2"]; ?>','<?php echo $wheels_array["wheel$i"]["desc3"]; ?>','<?php echo $wheels_array["wheel$i"]["link"]; ?>')"><?php echo $wheels_array["wheel$i"]["name"]; ?> <br /><span>click image or title to view</span></p>
 
       <?php } ?>
 
@@ -151,6 +154,7 @@ function wheels_shortcode() {
     <div id="caster-wheel-info">
       
       <div id="caster-wheel-image">
+        <div class="mask">Loading...</div>
         <span class="capacity">MAX CAPACITY: <span style="font-size:150%;"><?php echo $wheels_array["wheel1"]["capacity"]; ?></span> <sup>lbs</sup></span>
         <a style="position:absolute;top:0;" href='<?php echo $wheels_array["wheel1"]["link"]; ?>'><img src='<?php echo $wheels_array["wheel1"]["image"]; ?>' /></a>
       </div>
