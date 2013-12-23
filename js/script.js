@@ -4,12 +4,6 @@ $(function(){
   $(window).resize(function(){
     $('#caster-wheel-image').height($('#caster-wheel-image').width())
   })
-
-  $('#caster-wheel-image a').hover(function(){
-    $('#caster-wheel-image').css('border-radius','100px')
-  },function(){
-    $('#caster-wheel-image').css('border-radius','50px')
-  })
 })
 
 function change_caster_wheel(e,name,img,capacity,series,desc1,desc2,desc3,link){
