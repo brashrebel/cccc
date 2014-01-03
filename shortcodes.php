@@ -36,7 +36,7 @@ function casters_shortcode($atts) {
 
     <h2>Our Casters</h2>
 
-    <div id="caster-wheel-list">
+    <div id="caster-wheel-list" class="casters">
 
       <p class="caster-wheel-display"><span onclick="display_all(this)">All</span> &bull; <span onclick="display_type(this)">Type</span> &bull; <span onclick="display_series(this)">Series</span>
 
@@ -139,7 +139,7 @@ function wheels_shortcode() {
 
     <h2>Our Wheels</h2>
 
-    <div id="caster-wheel-list">
+    <div id="caster-wheel-list" class="wheels">
 
       <?php
       $count = count($wheels_array);

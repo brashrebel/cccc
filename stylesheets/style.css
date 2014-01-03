@@ -18,11 +18,15 @@
 }
 #caster-wheel-list .item{
   cursor:pointer;
-  margin:10px 0;
+  padding:5px 0;
+  margin:0;
   line-height:15px;
   font-size:13px;
 }
-#caster-wheel-list p:nth-child(2){
+#caster-wheel-list.casters p:nth-child(2){
+  color:#4dbbe2;
+}
+#caster-wheel-list.wheels p:first-child{
   color:#4dbbe2;
 }
 #caster-wheel-list .item span{
