@@ -42,7 +42,7 @@ The Caster Concepts website needs post types to properly segregate and manage da
 
 == Changelog ==
 
-= 1.1 =
+= 1.0 =
 
 
 * Initial release.
