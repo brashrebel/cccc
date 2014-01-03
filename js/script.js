@@ -27,12 +27,6 @@ function transition(e){
     $(this).remove()
   }})
   $(e).parent().animate({top:0},500)
-
-  $('#caster-wheel-image a').hover(function(){
-    $('#caster-wheel-image').css('border-radius','100px')
-  },function(){
-    $('#caster-wheel-image').css('border-radius','50px')
-  })
 }
 
 function display_all(e){

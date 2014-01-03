@@ -18,7 +18,7 @@
 }
 #caster-wheel-list .item{
   cursor:pointer;
-  margin:0;
+  margin:10px 0;
   line-height:15px;
   font-size:13px;
 }
@@ -29,19 +29,10 @@
   vertical-align:top
 }
 #caster-wheel-list .item:hover{
-  color:#4dbbe2;
+  color:#4dbbe2 !important;
 }
 #caster-wheel-list .item:active{
   opacity:0;
-}
-#caster-wheel-list .item:hover span{
-  visibility:visible;
-}
-#caster-wheel-list .item span{
-  visibility:hidden;
-  font-style:italic;
-  color:#006E99;
-  font-size:75%;
 }
 #caster-wheel-info{
   float:right;
