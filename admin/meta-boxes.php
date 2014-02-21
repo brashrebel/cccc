@@ -39,19 +39,19 @@ function casters_meta_archive_img( $post ) {
 }
 
 // Series
-$casters_meta_series = array(
-    'id' => 'casters-series',
-    'title' => 'Caster View Series Link<b style="color:#f00;">*</b>',
+$casters_meta_info = array(
+    'id' => 'casters-info',
+    'title' => 'Caster Table Lookup<b style="color:#f00;">*</b>',
     'page' => 'casters',
     'context' => 'normal',
     'priority' => 'default'
 );
 
-add_action('add_meta_boxes', 'casters_meta_series' );
+add_action('add_meta_boxes', 'casters_meta_info' );
 
-function casters_meta_series( $post ) {
-    global $casters_meta_series;
-    add_meta_box($casters_meta_series['id'], $casters_meta_series['title'], 'casters_series', $casters_meta_series['page'], $casters_meta_series['context'], $casters_meta_series['priority']);
+function casters_meta_info( $post ) {
+    global $casters_meta_info;
+    add_meta_box($casters_meta_info['id'], $casters_meta_info['title'], 'casters_info', $casters_meta_info['page'], $casters_meta_info['context'], $casters_meta_info['priority']);
 }
 
 // Type or Series

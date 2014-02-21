@@ -20,12 +20,13 @@ require_once (plugin_dir_path(__FILE__).'/admin/admin.php');
 require_once (plugin_dir_path(__FILE__).'/shortcodes.php');
 // require_once (plugin_dir_path(__FILE__).'/js/script.js');
 
-add_action( 'wp_enqueue_scripts', 'cccc_enqueue_script' );
-add_action( 'wp_enqueue_scripts', 'cccc_enqueue_style' );
+add_action( 'wp_enqueue_scripts', 'cccc_enqueue_files' );
 
 wp_register_script( 'cccc_script', plugins_url( '/js/script.js', __FILE__ ),array('jquery'));
 wp_register_style( 'cccc_style', plugins_url( '/stylesheets/style.css', __FILE__ ));
 
-wp_enqueue_script( 'cccc_script' );
-wp_enqueue_style( 'cccc_style' );
+function cccc_enqueue_files(){
+  wp_enqueue_script( 'cccc_script' );
+  wp_enqueue_style( 'cccc_style' );
+}
 ?>

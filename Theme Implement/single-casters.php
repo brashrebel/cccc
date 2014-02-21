@@ -1,70 +1,80 @@
 <?php get_header(); ?>
 
-<?php while(have_posts()): the_post();?>
+<?php 
+  $img = get_post_meta(get_the_ID(), 'cccc_img', true);
+  $archive_img = get_post_meta(get_the_ID(), 'cccc_archive_img', true);
+  $capacity = get_post_meta(get_the_ID(), 'cccc_capacity', true);
+  $desc1 = get_post_meta(get_the_ID(), 'cccc_desc1', true);
+  $desc2 = get_post_meta(get_the_ID(), 'cccc_desc2', true);
+  $desc3 = get_post_meta(get_the_ID(), 'cccc_desc3', true);
+  $keyword = get_post_meta(get_the_ID(), 'cccc_keyword', true);
+  $series = get_post_meta(get_the_ID(), 'cccc_series', true);
+?>
 
-      <?php 
-      $img = get_post_meta(get_the_ID(), 'cccc_img', true);
-      $archive_img = get_post_meta(get_the_ID(), 'cccc_archive_img', true);
-      $capacity = get_post_meta(get_the_ID(), 'cccc_capacity', true);
-      $desc1 = get_post_meta(get_the_ID(), 'cccc_desc1', true);
-      $desc2 = get_post_meta(get_the_ID(), 'cccc_desc2', true);
-      $desc3 = get_post_meta(get_the_ID(), 'cccc_desc3', true);
-      $series = get_post_meta(get_the_ID(), 'cccc_series', true); 
+<div class="container">
 
-      if (!$series)
-        $series = '#table';
-      ?>
+  <div id="topFrame"></div>
+  <div class="frame">
+    <h1><?php the_title();?></h1>
+    <div class="description">
+      <ul>
+        <li><?php echo $desc1; ?></li>
+        <li><?php echo $desc2; ?></li>
+        <li><?php echo $desc3; ?></li>
+      </ul>
+    </div><!--Description-->
+  </div>
+  <div id="bottomFrame"></div>
+  <div id="bottomFrameBottom"></div>
 
-  <div class="container">
+</div><!--Container-->
 
-    <div id="topFrame"></div>
-    <div class="frame">
-      <h1><?php the_title();?></h1>
-      <div class="description">
-        <ul>
-          <li><?php echo $desc1; ?></li>
-          <li><?php echo $desc2; ?></li>
-          <li><?php echo $desc3; ?></li>
-        </ul>
-      </div>
-    </div>
-    <div id="bottomFrame"></div>
-    <div id="bottomFrameBottom"></div>
+<div id="main">
 
-  </div><!--Container-->
+  <?php if(have_posts()):?>
 
-  <div id="main">
+  <div id="content" class="no-sidebar">
+    
+    <?php while(have_posts()): the_post();?>
 
-    <div id="content">
+      <?php if ( function_exists( 'breadcrumb_trail' ) ) breadcrumb_trail(); ?>
 
-    <?php dynamic_sidebar('sharebar'); ?>
+      <?php dynamic_sidebar('sharebar'); ?>
+      
+      <div style="clear:both;"></div>
 
-        <?php if ( function_exists( 'breadcrumb_trail' ) ) breadcrumb_trail(); ?>
-        <div style="clear:both;"></div>
+      <a class="cccc-button" style="float:left;" href="#table">View Series</a>
+      <a class="cccc-button" style="float:right;" href="/casters">Back to Casters</a>
 
-        <a class="cccc-button" style="float:left;text-decoration:none;" href="<?php echo $series; ?>">View Series</a>
-        <a class="cccc-button" style="float:right;text-decoration:none;" href="/casters">Back to Casters</a>
+      <div style="clear:both;height: 20px;"></div>
 
-        <div style="clear:both;height:30px;"></div>
+      <div id="cccc-img"><img src="<?php echo $img; ?>" /></div>
 
-        <div id="cccc-img"><img src="<?php echo $img; ?>" /></div>
+      <?php the_content(); ?>
 
-        <?php the_content(); ?>
-
-        <?php if ($series != '#table'): ?>
-          <p style="text-align:center;font-size:17px;">To view the entire series, click below.</p>
-          <p style="text-align:center;"><a href="<?php echo $series; ?>"><img src="http://www.casterconcepts.com/wp-content/themes/casterconcepts/images/caster-types/table.jpg" /></a></p>
-        <?php endif; ?>
-
-        <div id="cccc-footer">
-          <p><i>For further information or a quote please contact us at <a href="mailto:sales@casterconcepts.com">sales@casterconcepts.com</a> or call 517-629-8838</i></p>
+      <p><i>For further information or a quote please contact us at <a href="mailto:sales@casterconcepts.com">sales@casterconcepts.com</a> or call 517-680-7920</i></p>
+      
+      <?php if ($series || $keyword): ?>
+        <div id="table" class="casters">
+          <?php
+            require_once($_SERVER['DOCUMENT_ROOT'] . '/classes/scswp.php');
+            $scswp=new scswp_class('Casters',$series,$keyword);
+          ?>
         </div>
+      <?php endif; ?>
 
     <?php endwhile;?>
 
   </div><!--Content-->
 
-  <?php get_sidebar(); ?>
+  <?php else: ?>
+
+  <div id="content">
+    <h1>Not Found</h1>
+    <p>Sorry, but you are looking for something that isn't here.</p>
+  </div>
+
+  <?php endif;?>
   
 </div><!--Main-->
 

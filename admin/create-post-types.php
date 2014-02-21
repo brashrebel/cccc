@@ -31,6 +31,7 @@ function register_cpt_caster() {
         'show_ui' => true,
         'show_in_menu' => true,
         'menu_position' => 50,
+        'menu_icon' => 'dashicons-admin-generic',
         'rewrite' => array('slug' =>'casters'),
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
@@ -72,37 +73,6 @@ function caster_updated_messages( $messages ) {
 }
 add_filter( 'post_updated_messages', 'caster_updated_messages' );
 
-// Styling for the custom post type icon
-add_action( 'admin_head', 'wpt_portfolio_icons' );
-function wpt_portfolio_icons() {
-    $file = dirname(__FILE__) . '/cccc.php';
-    $plugin_path = plugin_dir_path($file);
-    ?>
-    <style type="text/css" media="screen">
-    #menu-posts-casters .wp-menu-image {
-            /*background: url(<?php echo $plugin_path; ?>/images/admin-small.png) no-repeat 6px 6px !important;*/
-            background: url(http://www.race-find.com/ccdev/wp-content/plugins/cccc/images/admin-small.png) no-repeat -19px 3px !important;
-        }
-    #menu-posts-casters:hover .wp-menu-image, #menu-posts-casters.wp-has-current-submenu .wp-menu-image {
-            background-position:-20px -23px !important;
-        }
-    #icon-edit.icon32-posts-casters {
-        /*background: url(<?php echo $plugin_path; ?>/images/admin-big.png) no-repeat;*/
-        background: url(http://www.race-find.com/ccdev/wp-content/plugins/cccc/images/admin-big.png) no-repeat -40px -1px !important;
-    }
-    #menu-posts-wheels .wp-menu-image {
-            /*background: url(<?php echo $plugin_path; ?>/images/admin-small.png) no-repeat 6px 6px !important;*/
-            background: url(http://www.race-find.com/ccdev/wp-content/plugins/cccc/images/admin-small.png) no-repeat 6px 3px !important;
-        }
-    #menu-posts-wheels:hover .wp-menu-image, #menu-posts-wheels.wp-has-current-submenu .wp-menu-image {
-            background-position:6px -23px !important;
-        }
-    #icon-edit.icon32-posts-wheels {
-        /*background: url(<?php echo $plugin_path; ?>/images/admin-big.png) no-repeat;*/
-        background: url(http://www.race-find.com/ccdev/wp-content/plugins/cccc/images/admin-big.png) no-repeat 2px -1px !important;
-    }
-    </style>
-<?php }
 
 /*------------------------------
 Setup wheels post type
@@ -136,6 +106,7 @@ function register_cpt_wheel() {
         'show_ui' => true,
         'show_in_menu' => true,
         'menu_position' => 55,
+        'menu_icon' => 'dashicons-admin-generic',
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
         'exclude_from_search' => false,

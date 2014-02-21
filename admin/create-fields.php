@@ -42,18 +42,23 @@ function casters_description( $post ) {
 <?php
 }
 
-function casters_series( $post ) {
+function casters_info( $post ) {
     global $post;
     $values = get_post_custom( $post->ID );  
     $cccc_series = isset( $values['cccc_series'] ) ? esc_attr( $values['cccc_series'][0] ) : '';
+    $cccc_keyword = isset( $values['cccc_keyword'] ) ? esc_attr( $values['cccc_keyword'][0] ) : '';
 
 // We'll use this nonce field later on when saving.  
     wp_nonce_field( 'my_meta_box_nonce', 'meta_box_nonce' ); 
         $example_stored_meta = get_post_meta( $post->ID );
     ?>  
 <p>
-    <label for="cccc_series">Enter the link to the series</label>
-    <input style="width:80%;" type="text" name="cccc_series" id="cccc_series" value="<?php echo $cccc_series; ?>" />
+    <p class="description">Use this section to enter data for looking up the series table. You may use just the series (30,50,51,castershox,etc.), or just the keyword (Dual Wheel, Flanged Wheel, Heavy Duty), or a combination of both.</p>
+    <p class="description">In order to look up the series and/or keyword, please log in as an admin (not through wordpress, through the configurator) and select either "Key Words" or "Series Codes" from the "Super User Menu". From here you can view and search for series codes and/or keywords. <strong>If using a keyword it must be the keyword code, not the keyword itself. Example: For Dual Wheel, input "DW".</strong></p>
+    <label for="cccc_series">Enter the series</label><br/>
+    <input style="width:250px;" type="text" name="cccc_series" id="cccc_series" value="<?php echo $cccc_series; ?>" /><br/>
+    <label for="cccc_keyword">Enter the keyword</label><br/>
+    <input style="width:250px;" type="text" name="cccc_keyword" id="cccc_keyword" value="<?php echo $cccc_keyword; ?>" />
 </p>
 <?php
 }
@@ -68,7 +73,7 @@ function casters_capacity( $post ) {
         $example_stored_meta = get_post_meta( $post->ID );
     ?>  
 <p>
-    <label for="cccc_capacity">Enter the capcity for the Caster (in lbs)</label>
+    <label for="cccc_capacity">Enter the capicity for the Caster (in lbs)</label><br/>
     <input type="text" name="cccc_capacity" id="cccc_capacity" value="<?php echo $cccc_capacity; ?>" /><br/>
     <span class="description">Whatever format desired. Standard would be with comma (##,###).
 </p>
