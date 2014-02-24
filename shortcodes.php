@@ -34,8 +34,6 @@ function casters_shortcode($atts) {
 
     <?php wp_reset_postdata(); ?>
 
-    <h2>Our Casters</h2>
-
     <div id="caster-wheel-list" class="casters">
 
       <p class="caster-wheel-display"><span onclick="display_all(this)">All</span> &bull; <span onclick="display_type(this)">Type</span> &bull; <span onclick="display_series(this)">Series</span>
@@ -136,8 +134,6 @@ function wheels_shortcode() {
     <?php endwhile; ?>
 
     <?php wp_reset_postdata(); ?>
-
-    <h2>Our Wheels</h2>
 
     <div id="caster-wheel-list" class="wheels">
 
