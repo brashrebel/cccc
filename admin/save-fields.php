@@ -33,6 +33,8 @@ function casters_meta_box_save( $post_id ) {
         update_post_meta( $post_id, 'cccc_keyword', wp_kses( $_POST['cccc_keyword'], $allowed ) );
     if( isset( $_POST['cccc_series'] ) )  
         update_post_meta( $post_id, 'cccc_series', wp_kses( $_POST['cccc_series'], $allowed ) );
+    if( isset( $_POST['cccc_tabs'] ) )  
+        update_post_meta( $post_id, 'cccc_tabs', wp_kses( $_POST['cccc_tabs'], $allowed ) );
     if( isset( $_POST['cccc_table'] ) )  
         update_post_meta( $post_id, 'cccc_table', wp_kses( $_POST['cccc_table'], $allowed ) );
     if( isset( $_POST['cccc_archive_img'] ) )  

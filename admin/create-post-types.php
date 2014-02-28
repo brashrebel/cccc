@@ -73,6 +73,90 @@ function caster_updated_messages( $messages ) {
 }
 add_filter( 'post_updated_messages', 'caster_updated_messages' );
 
+// Custom columns
+add_filter( 'manage_edit-casters_columns', 'cccc_casters_columns' ) ;
+
+function cccc_casters_columns( $columns ) {
+    $columns = array(
+        'cb' => '<input type="checkbox" />',
+        'title' => __( 'Caster' ),
+        'type_or_series' => __( 'Series/Type' ),
+        'capacity' => __( 'Capacity' ),
+        'date' => __( 'Date' )
+    );
+    return $columns;
+}
+
+add_action( 'manage_casters_posts_custom_column', 'cccc_casters_column_content', 10, 2 );
+
+function cccc_casters_column_content( $column, $post_id ) {
+    global $post;
+
+    switch( $column ) {
+        /* If displaying the 'type_or_series' column. */
+        case 'type_or_series' :
+            /* Get the post meta. */
+            $type_or_series = get_post_meta( $post_id, 'cccc_type_or_series', true );
+            /* If no type_or_series is found, output a default message. */
+            if ( empty( $type_or_series ) )
+                echo __( 'Unknown' );
+            /* If there is a type_or_series, append 'minutes' to the text string. */
+            else
+                echo $type_or_series;
+            break;
+
+        case 'capacity' :
+            /* Get the post meta. */
+            $capacity = get_post_meta( $post_id, 'cccc_capacity', true );
+            /* If no capacity is found, output a default message. */
+            if ( empty( $capacity ) )
+                echo __( 'Unknown' );
+            /* If there is a capacity, append 'minutes' to the text string. */
+            else
+                echo str_replace(',', '', $capacity);
+            break;
+
+        /* Just break out of the switch statement for everything else. */
+        default :
+            break;
+    }
+}
+
+add_filter( 'manage_edit-casters_sortable_columns', 'cccc_casters_column_sortable' );
+
+function cccc_casters_column_sortable( $columns ) {
+    $columns['type_or_series'] = 'type_or_series';
+    return $columns;
+}
+
+/* Only run our customization on the 'edit.php' page in the admin. */
+add_action( 'load-edit.php', 'cccc_casters_column_load' );
+
+function cccc_casters_column_load() {
+    add_filter( 'request', 'cccc_casters_column_sort' );
+}
+
+/* Sorts the movies. */
+function cccc_casters_column_sort( $vars ) {
+
+    /* Check if we're viewing the 'movie' post type. */
+    if ( isset( $vars['post_type'] ) && 'casters' == $vars['post_type'] ) {
+
+        /* Check if 'orderby' is set to 'duration'. */
+        if ( isset( $vars['orderby'] ) && 'type_or_series' == $vars['orderby'] ) {
+
+            /* Merge the query vars with our custom variables. */
+            $vars = array_merge(
+                $vars,
+                array(
+                    'meta_key' => 'cccc_type_or_series',
+                    'orderby' => 'meta_value'
+                )
+            );
+        }
+    }
+    return $vars;
+}
 
 /*------------------------------
 Setup wheels post type
@@ -148,4 +232,38 @@ function wheel_updated_messages( $messages ) {
 }
 add_filter( 'post_updated_messages', 'wheel_updated_messages' );
 
-?>
+// Custom columns
+add_filter( 'manage_edit-wheels_columns', 'cccc_wheels_columns' ) ;
+
+function cccc_wheels_columns( $columns ) {
+    $columns = array(
+        'cb' => '<input type="checkbox" />',
+        'title' => __( 'Caster' ),
+        'capacity' => __( 'Capacity' ),
+        'date' => __( 'Date' )
+    );
+    return $columns;
+}
+
+add_action( 'manage_wheels_posts_custom_column', 'cccc_wheels_column_content', 10, 2 );
+
+function cccc_wheels_column_content( $column, $post_id ) {
+    global $post;
+
+    switch( $column ) {
+        case 'capacity' :
+            /* Get the post meta. */
+            $capacity = get_post_meta( $post_id, 'cccc_capacity', true );
+            /* If no capacity is found, output a default message. */
+            if ( empty( $capacity ) )
+                echo __( 'Unknown' );
+            /* If there is a capacity, append 'minutes' to the text string. */
+            else
+                echo str_replace(',', '', $capacity);
+            break;
+
+        /* Just break out of the switch statement for everything else. */
+        default :
+            break;
+    }
+}

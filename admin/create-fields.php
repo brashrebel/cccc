@@ -47,18 +47,23 @@ function casters_info( $post ) {
     $values = get_post_custom( $post->ID );  
     $cccc_series = isset( $values['cccc_series'] ) ? esc_attr( $values['cccc_series'][0] ) : '';
     $cccc_keyword = isset( $values['cccc_keyword'] ) ? esc_attr( $values['cccc_keyword'][0] ) : '';
+    $cccc_tabs = isset( $values['cccc_tabs'] ) ? esc_attr( $values['cccc_tabs'][0] ) : '';
 
 // We'll use this nonce field later on when saving.  
     wp_nonce_field( 'my_meta_box_nonce', 'meta_box_nonce' ); 
         $example_stored_meta = get_post_meta( $post->ID );
     ?>  
 <p>
-    <p class="description">Use this section to enter data for looking up the series table. You may use just the series (30,50,51,castershox,etc.), or just the keyword (Dual Wheel, Flanged Wheel, Heavy Duty), or a combination of both.</p>
-    <p class="description">In order to look up the series and/or keyword, please log in as an admin (not through wordpress, through the configurator) and select either "Key Words" or "Series Codes" from the "Super User Menu". From here you can view and search for series codes and/or keywords. <strong>If using a keyword it must be the keyword code, not the keyword itself. Example: For Dual Wheel, input "DW".</strong></p>
+    <span class="description">Use this section to enter data for looking up the series table. You may use just the series (30,50,51,castershox,etc.), or just the keyword (Dual Wheel, Flanged Wheel, Heavy Duty), or a combination of both.</span><br/>
+    <span class="description">In order to look up the series and/or keyword, please log in as an admin (not through wordpress, through the configurator) and select either "Key Words" or "Series Codes" from the "Super User Menu". From here you can view and search for series codes and/or keywords. <strong>If using a keyword it must be the keyword code, not the keyword itself. Example: For Dual Wheel, input "DW".</strong></span><br/>
     <label for="cccc_series">Enter the series</label><br/>
     <input style="width:250px;" type="text" name="cccc_series" id="cccc_series" value="<?php echo $cccc_series; ?>" /><br/>
     <label for="cccc_keyword">Enter the keyword</label><br/>
-    <input style="width:250px;" type="text" name="cccc_keyword" id="cccc_keyword" value="<?php echo $cccc_keyword; ?>" />
+    <input style="width:250px;" type="text" name="cccc_keyword" id="cccc_keyword" value="<?php echo $cccc_keyword; ?>" /><br/>
+    <label for="cccc_tabs">Show tabs?</label>
+    <input type="hidden" name="cccc_tabs" value="0">
+    <input type="checkbox" name="cccc_tabs" id="cccc_tabs" <?php checked($cccc_tabs); ?> value="1" /><br/>
+    <span class="description">If checked, tabs will show. Otherwise, they won't.</span>
 </p>
 <?php
 }
@@ -91,8 +96,7 @@ function casters_img( $post ) {
     ?>  
 <p>
     <label for="cccc_img">Image</label>
-    <input type="text" name="cccc_img" id="cccc_img" value="<?php if ( isset ( $cccc_img ) ) echo $cccc_img; ?>" />
-    <input type="button" id="meta-image-button" class="button" value="Choose or Upload Image" /><br/>
+    <?php media_uploader('cccc_img', $cccc_img); ?>
     <span class="description">Image to display on single wheel page.<br/>
         Needs to be in "gif" format<br/>
         Minimum resolution: 250X500px
@@ -112,8 +116,7 @@ function casters_archive_img( $post ) {
     ?>  
 <p>
     <label for="cccc_archive_img">Image</label>
-    <input type="text" name="cccc_archive_img" id="cccc_archive_img" value="<?php if ( isset ( $cccc_archive_img ) ) echo $cccc_archive_img; ?>" />
-    <input type="button" id="meta-archive-image-button" class="button" value="Choose or Upload Image" /><br/>
+    <?php media_uploader('cccc_archive_img', $cccc_archive_img); ?>
     <span class="description">Image to display on wheel archive page.<br/>
         Needs to be in "jpg" format<br/>
         Minimum resolution: 400px
@@ -123,9 +126,9 @@ function casters_archive_img( $post ) {
 }
 
 // For image uploader
-function prfx_image_enqueue() {
+function cccc_media_uploader_script() {
     // Registers and enqueues the required javascript.
-    wp_register_script( 'meta-box-image', 'http://www.race-find.com/ccdev/wp-content/plugins/cccc/js/meta-box-img.js', array( 'jquery' ) );
+    wp_register_script( 'meta-box-image', plugins_url( '../js/meta-box-img.js', __FILE__ ), array( 'jquery' ) );
     wp_localize_script( 'meta-box-image', 'meta_image',
         array(
             'title' => __( 'Choose or Upload an Image', 'prfx-textdomain' ),
@@ -134,7 +137,7 @@ function prfx_image_enqueue() {
     );
     wp_enqueue_script( 'meta-box-image' );
 }
-add_action( 'admin_enqueue_scripts', 'prfx_image_enqueue' );
+add_action( 'admin_enqueue_scripts', 'cccc_media_uploader_script' );
 
 /*-----------------
 Add wheels fields
@@ -205,8 +208,7 @@ function wheels_img( $post ) {
     ?>  
 <p>
     <label for="cccc_img">Image</label>
-    <input type="text" name="cccc_img" id="cccc_img" value="<?php if ( isset ( $cccc_img ) ) echo $cccc_img; ?>" />
-    <input type="button" id="meta-image-button" class="button" value="Choose or Upload Image" /><br/>
+    <?php media_uploader('cccc_img', $cccc_img); ?>
     <span class="description">Image to display on single wheel page.<br/>
         Needs to be in "gif" format<br/>
         Minimum resolution: 250X500px
@@ -226,8 +228,7 @@ function wheels_archive_img( $post ) {
     ?>  
 <p>
     <label for="cccc_archive_img">Image</label>
-    <input type="text" name="cccc_archive_img" id="cccc_archive_img" value="<?php if ( isset ( $cccc_archive_img ) ) echo $cccc_archive_img; ?>" />
-    <input type="button" id="meta-archive-image-button" class="button" value="Choose or Upload Image" /><br/>
+    <?php media_uploader('cccc_archive_img', $cccc_archive_img); ?>
     <span class="description">Image to display on wheel archive page.<br/>
         Needs to be in "jpg" format<br/>
         Minimum resolution: 400px
@@ -235,4 +236,13 @@ function wheels_archive_img( $post ) {
 </p>
 <?php
 }
-?>
+
+function media_uploader($meta_name, $meta_value){
+    $image = wp_get_attachment_image_src($meta_value, 'thumb'); ?>
+    <div class="media-upload">
+        <img class="preview" src="<?php echo $image[0]; ?>" />
+        <div style="clear:both;"></div>
+        <input type="hidden" class="media" name="<?php echo $meta_name; ?>" id="<?php echo $meta_name; ?>" value="<?php echo $meta_value; ?>" />
+        <input type="button" class="button" value="Choose or Upload Image" onclick="media_uploader(this)" /><br/>
+    </div>
+<?php }

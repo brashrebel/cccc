@@ -40,7 +40,7 @@
 }
 #caster-wheel-info{
   float:right;
-  width:400px;
+  width: 392px;
 }
 #caster-wheel-info .name{
   margin:5px 0;
@@ -79,7 +79,7 @@
   padding:190px 0;
   position:absolute;
   z-index:1;
-  height:100px;
+  height:100%;
   top:0;
   left:0;
   font-style:italic;
@@ -93,31 +93,24 @@
   margin-right:-10px;
   float:right;
 }
-.cccc-button{
-  text-decoration:none;
+.button.cccc{
   width:190px;
-  display:inline-block;
-  text-align:center;
-  padding:10px 0;
-  margin: 5px 0 5px;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  color:#fff;
-  font-size:20px;
-  font-weight:bold;
-  background: rgb(0,120,186);
 }
-.cccc-button:hover{
-  background: rgb(0,132,204);
+.button.cccc.left{
+  float: left;
+}
+.button.cccc.right{
+  float: right;
 }
 #cccc-footer{
-  margin-left:-10px;
-  width:721px;
-  padding:0 10px;
-  font-size:11px;
-  background:url(../images/bottom.png) no-repeat;
+  position: relative;
+  left: -10px;
+  width: 105%;
+  text-indent: 10px;
+  border-bottom: 10px solid #006DA8;
+  font-size: 11px;
+}
+#cccc-footer p{
+  border-bottom: 10px solid #6FCCFF;
+  margin: 0;
 }

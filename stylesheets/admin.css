@@ -1,0 +1,7 @@
+.media-upload .preview{
+  max-width: 200px;
+  max-height: 200px;
+  height: auto;
+  float: none;
+  margin: 10px 0;
+}

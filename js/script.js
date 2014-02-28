@@ -6,7 +6,7 @@ $(function(){
   })
 })
 
-function change_caster_wheel(e,name,img,capacity,series,desc1,desc2,desc3,link){
+function change_caster_wheel(e,name,capacity,series,desc1,desc2,desc3,link,img_url,img_title,img_alt){
   if ('<a href="'+link+'">'+name+'</a>' != $('#caster-wheel-info .name').html()){
     $('#caster-wheel-image .mask').css('display','block')
     $('#caster-wheel-list p').css('color','#000')
@@ -16,7 +16,7 @@ function change_caster_wheel(e,name,img,capacity,series,desc1,desc2,desc3,link){
     $('#caster-wheel-info .desc2').html(desc2)
     $('#caster-wheel-info .desc3').html(desc3)
     $('#caster-wheel-image .capacity').html('MAX CAPACITY: <span style="font-size:150%;">'+capacity+'</span> <sup>lbs</sup>')
-    $('#caster-wheel-image').append('<a style="position:absolute;top:100%;" href="'+link+'"><img onload="transition(this)" src="'+img+'" /></a>')
+    $('#caster-wheel-image').append('<a style="position:absolute;top:100%;" href="'+link+'"><img onload="transition(this)" alt="'+img_alt+'" title="'+img_title+'" src="'+img_url+'" /></a>')
   }
 }
 
