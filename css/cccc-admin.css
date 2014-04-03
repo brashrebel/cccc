@@ -1,0 +1,17 @@
+.bmu-preview{
+  max-width: 100%;
+  height: auto;
+  float: none;
+  margin: 10px 0;
+}
+
+.description{
+  float: none;
+}
+
+.chosen-container{
+  width: 100% !important;
+}
+.search-field input{
+  height: auto !important;
+}

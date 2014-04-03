@@ -43,6 +43,7 @@ function register_cpt_caster() {
     );
 
     register_post_type( 'casters', $args );
+    // flush_rewrite_rules();
 }
 
 function change_caster_title( $title ){
@@ -93,30 +94,21 @@ function cccc_casters_column_content( $column, $post_id ) {
     global $post;
 
     switch( $column ) {
-        /* If displaying the 'type_or_series' column. */
         case 'type_or_series' :
-            /* Get the post meta. */
             $type_or_series = get_post_meta( $post_id, 'cccc_type_or_series', true );
-            /* If no type_or_series is found, output a default message. */
             if ( empty( $type_or_series ) )
                 echo __( 'Unknown' );
-            /* If there is a type_or_series, append 'minutes' to the text string. */
             else
                 echo $type_or_series;
             break;
 
         case 'capacity' :
-            /* Get the post meta. */
             $capacity = get_post_meta( $post_id, 'cccc_capacity', true );
-            /* If no capacity is found, output a default message. */
             if ( empty( $capacity ) )
                 echo __( 'Unknown' );
-            /* If there is a capacity, append 'minutes' to the text string. */
             else
                 echo str_replace(',', '', $capacity);
             break;
-
-        /* Just break out of the switch statement for everything else. */
         default :
             break;
     }
@@ -129,23 +121,18 @@ function cccc_casters_column_sortable( $columns ) {
     return $columns;
 }
 
-/* Only run our customization on the 'edit.php' page in the admin. */
 add_action( 'load-edit.php', 'cccc_casters_column_load' );
 
 function cccc_casters_column_load() {
     add_filter( 'request', 'cccc_casters_column_sort' );
 }
 
-/* Sorts the movies. */
 function cccc_casters_column_sort( $vars ) {
 
-    /* Check if we're viewing the 'movie' post type. */
     if ( isset( $vars['post_type'] ) && 'casters' == $vars['post_type'] ) {
 
-        /* Check if 'orderby' is set to 'duration'. */
         if ( isset( $vars['orderby'] ) && 'type_or_series' == $vars['orderby'] ) {
 
-            /* Merge the query vars with our custom variables. */
             $vars = array_merge(
                 $vars,
                 array(
@@ -202,6 +189,7 @@ function register_cpt_wheel() {
     );
 
     register_post_type( 'wheels', $args );
+    // flush_rewrite_rules();
 }
 
 function change_wheel_title( $title ){

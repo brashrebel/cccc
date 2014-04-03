@@ -16,9 +16,12 @@ them credit for being awesome and also as a reference for myself later. Not requ
 require_once (plugin_dir_path(__FILE__).'/admin/admin.php');
 require_once (plugin_dir_path(__FILE__).'/shortcodes.php');
 
-wp_register_script( 'cccc_script', plugins_url( '/js/script.js', __FILE__ ),array('jquery'));
-wp_register_style( 'cccc_style', plugins_url( '/stylesheets/style.css', __FILE__ ));
-wp_register_style( 'cccc_admin_style', plugins_url( '/stylesheets/admin.css', __FILE__ ));
+function cccc_register_files(){
+  wp_register_script( 'cccc_script', plugins_url( '/js/cccc-script.js', __FILE__ ),array('jquery'), null, true);
+  wp_register_style( 'cccc_style', plugins_url( '/css/cccc-style.css', __FILE__ ), array(), null);
+  wp_register_style( 'cccc_admin_style', plugins_url( '/css/cccc-admin.css', __FILE__ ), array(), null);
+}
+add_action('init', 'cccc_register_files');
 
 function cccc_enqueue_admin_files(){
   wp_enqueue_style('cccc_admin_style');
@@ -26,7 +29,9 @@ function cccc_enqueue_admin_files(){
 add_action('admin_enqueue_scripts', 'cccc_enqueue_admin_files');
 
 function cccc_enqueue_files(){
-  wp_enqueue_script( 'cccc_script' );
-  wp_enqueue_style( 'cccc_style' );
+  if (is_page('casters') || is_page('wheels')):
+    wp_enqueue_script( 'cccc_script' );
+    wp_enqueue_style( 'cccc_style' );
+  endif;
 }
 add_action( 'wp_enqueue_scripts', 'cccc_enqueue_files' );

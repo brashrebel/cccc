@@ -24,21 +24,40 @@ function casters_type_or_series( $post ) {
 
 function casters_description( $post ) {
     global $post;
-    $values = get_post_custom( $post->ID );  
-    $cccc_desc1 = isset( $values['cccc_desc1'] ) ? esc_attr( $values['cccc_desc1'][0] ) : '';
-    $cccc_desc2 = isset( $values['cccc_desc2'] ) ? esc_attr( $values['cccc_desc2'][0] ) : '';
-    $cccc_desc3 = isset( $values['cccc_desc3'] ) ? esc_attr( $values['cccc_desc3'][0] ) : '';
+    $cccc_capacity = get_post_meta($post->ID, 'cccc_capacity', true);
+    $cccc_diameter_low = get_post_meta($post->ID, 'cccc_diameter_low', true);
+    $cccc_diameter_high = get_post_meta($post->ID, 'cccc_diameter_high', true);
+    $cccc_width_low = get_post_meta($post->ID, 'cccc_width_low', true);
+    $cccc_width_high = get_post_meta($post->ID, 'cccc_width_high', true);
+    $cccc_materials = get_post_meta($post->ID, 'cccc_materials', true);
 
 // We'll use this nonce field later on when saving.  
     wp_nonce_field( 'my_meta_box_nonce', 'meta_box_nonce' ); 
         $example_stored_meta = get_post_meta( $post->ID );
     ?>  
-<p>
-    <label for="cccc_desc1">Enter 3 short description points</label><br/>
-    <input style="width:300px;" type="text" name="cccc_desc1" id="cccc_desc1" value="<?php echo $cccc_desc1; ?>" /><br/>
-    <input style="width:300px;" type="text" name="cccc_desc2" id="cccc_desc2" value="<?php echo $cccc_desc2; ?>" /><br/>
-    <input style="width:300px;" type="text" name="cccc_desc3" id="cccc_desc3" value="<?php echo $cccc_desc3; ?>" />
-</p>
+    <!-- Capacity -->
+    <label for="cccc_capacity">Enter the capacity for the Caster (in lbs)</label><br/>
+    <input type="text" name="cccc_capacity" id="cccc_capacity" value="<?php echo $cccc_capacity; ?>" /><br/>
+    <p class="description">Whatever format desired. Standard would be with comma (##,###).</p>
+
+    <!--- Diameter -->
+    <label for="cccc_diameter_low">Diameter low -> high (in inches)</label><br/>
+    <label for="cccc_diameter_low">Low</label>
+    <input type="text" name="cccc_diameter_low" id="cccc_diameter_low" value="<?php echo $cccc_diameter_low; ?>" />
+    <label for="cccc_diameter_high">High</label>
+    <input type="text" name="cccc_diameter_high" id="cccc_diameter_high" value="<?php echo $cccc_diameter_high; ?>" />
+    <p class="description">Format of regular integers (#)</p>
+
+    <!-- Width -->
+    <label for="cccc_width_low">Width low -> high (in inches)</label><br/>
+    <label for="cccc_width_low">Low</label>
+    <input type="text" name="cccc_width_low" id="cccc_width_low" value="<?php echo $cccc_width_low; ?>" />
+    <label for="cccc_width_high">High</label>
+    <input type="text" name="cccc_width_high" id="cccc_width_high" value="<?php echo $cccc_width_high; ?>" />
+    <p class="description">Format of floating integers to hundredth degree (#.##)</p>
+
+    <label for="cccc_materials">Available materials for caster</label><br/>
+    <?php materials_select($cccc_materials); ?>
 <?php
 }
 
@@ -68,23 +87,6 @@ function casters_info( $post ) {
 <?php
 }
 
-function casters_capacity( $post ) {
-    global $post;
-    $values = get_post_custom( $post->ID );  
-    $cccc_capacity = isset( $values['cccc_capacity'] ) ? esc_attr( $values['cccc_capacity'][0] ) : '';
-
-// We'll use this nonce field later on when saving.  
-    wp_nonce_field( 'my_meta_box_nonce', 'meta_box_nonce' ); 
-        $example_stored_meta = get_post_meta( $post->ID );
-    ?>  
-<p>
-    <label for="cccc_capacity">Enter the capicity for the Caster (in lbs)</label><br/>
-    <input type="text" name="cccc_capacity" id="cccc_capacity" value="<?php echo $cccc_capacity; ?>" /><br/>
-    <span class="description">Whatever format desired. Standard would be with comma (##,###).
-</p>
-<?php
-}
-
 function casters_img( $post ) {
     global $post;
     $values = get_post_custom( $post->ID );  
@@ -96,7 +98,7 @@ function casters_img( $post ) {
     ?>  
 <p>
     <label for="cccc_img">Image</label>
-    <?php media_uploader('cccc_img', $cccc_img); ?>
+    <?php backend_media_uploader('cccc_img', $cccc_img); ?>
     <span class="description">Image to display on single wheel page.<br/>
         Needs to be in "gif" format<br/>
         Minimum resolution: 250X500px
@@ -116,7 +118,7 @@ function casters_archive_img( $post ) {
     ?>  
 <p>
     <label for="cccc_archive_img">Image</label>
-    <?php media_uploader('cccc_archive_img', $cccc_archive_img); ?>
+    <?php backend_media_uploader('cccc_archive_img', $cccc_archive_img); ?>
     <span class="description">Image to display on wheel archive page.<br/>
         Needs to be in "jpg" format<br/>
         Minimum resolution: 400px
@@ -126,9 +128,8 @@ function casters_archive_img( $post ) {
 }
 
 // For image uploader
-function cccc_media_uploader_script() {
+function cccc_backend_media_uploader_script() {
     // Registers and enqueues the required javascript.
-    wp_register_script( 'meta-box-image', plugins_url( '../js/meta-box-img.js', __FILE__ ), array( 'jquery' ) );
     wp_localize_script( 'meta-box-image', 'meta_image',
         array(
             'title' => __( 'Choose or Upload an Image', 'prfx-textdomain' ),
@@ -137,7 +138,7 @@ function cccc_media_uploader_script() {
     );
     wp_enqueue_script( 'meta-box-image' );
 }
-add_action( 'admin_enqueue_scripts', 'cccc_media_uploader_script' );
+add_action( 'admin_enqueue_scripts', 'cccc_backend_media_uploader_script' );
 
 /*-----------------
 Add wheels fields
@@ -146,21 +147,47 @@ Add wheels fields
 
 function wheels_description( $post ) {
     global $post;
-    $values = get_post_custom( $post->ID );  
-    $cccc_desc1 = isset( $values['cccc_desc1'] ) ? esc_attr( $values['cccc_desc1'][0] ) : '';
-    $cccc_desc2 = isset( $values['cccc_desc2'] ) ? esc_attr( $values['cccc_desc2'][0] ) : '';
-    $cccc_desc3 = isset( $values['cccc_desc3'] ) ? esc_attr( $values['cccc_desc3'][0] ) : '';
+    $cccc_capacity = get_post_meta($post->ID, 'cccc_capacity', true);
+    $cccc_diameter_low = get_post_meta($post->ID, 'cccc_diameter_low', true);
+    $cccc_diameter_high = get_post_meta($post->ID, 'cccc_diameter_high', true);
+    $cccc_width_low = get_post_meta($post->ID, 'cccc_width_low', true);
+    $cccc_width_high = get_post_meta($post->ID, 'cccc_width_high', true);
+    $cccc_hub_low = get_post_meta($post->ID, 'cccc_hub_low', true);
+    $cccc_hub_high = get_post_meta($post->ID, 'cccc_hub_high', true);
 
 // We'll use this nonce field later on when saving.  
     wp_nonce_field( 'my_meta_box_nonce', 'meta_box_nonce' ); 
         $example_stored_meta = get_post_meta( $post->ID );
-    ?>  
-<p>
-    <label for="cccc_desc1">Enter 3 short description points</label><br/>
-    <input style="width:300px;" type="text" name="cccc_desc1" id="cccc_desc1" value="<?php echo $cccc_desc1; ?>" /><br/>
-    <input style="width:300px;" type="text" name="cccc_desc2" id="cccc_desc2" value="<?php echo $cccc_desc2; ?>" /><br/>
-    <input style="width:300px;" type="text" name="cccc_desc3" id="cccc_desc3" value="<?php echo $cccc_desc3; ?>" />
-</p>
+    ?>
+
+    <!-- Capacity -->
+    <label for="cccc_capacity">Enter the capacity for the Caster (in lbs)</label><br/>
+    <input type="text" name="cccc_capacity" id="cccc_capacity" value="<?php echo $cccc_capacity; ?>" /><br/>
+    <p class="description">Whatever format desired. Standard would be with comma (##,###).</p>
+
+    <!--- Diameter -->
+    <label for="cccc_diameter_low">Diameter low -> high (in inches)</label><br/>
+    <label for="cccc_diameter_low">Low</label>
+    <input type="text" name="cccc_diameter_low" id="cccc_diameter_low" value="<?php echo $cccc_diameter_low; ?>" />
+    <label for="cccc_diameter_high">High</label>
+    <input type="text" name="cccc_diameter_high" id="cccc_diameter_high" value="<?php echo $cccc_diameter_high; ?>" />
+    <p class="description">Format of regular integers (#)</p>
+
+    <!-- Width -->
+    <label for="cccc_width_low">Width low -> high (in inches)</label><br/>
+    <label for="cccc_width_low">Low</label>
+    <input type="text" name="cccc_width_low" id="cccc_width_low" value="<?php echo $cccc_width_low; ?>" />
+    <label for="cccc_width_high">High</label>
+    <input type="text" name="cccc_width_high" id="cccc_width_high" value="<?php echo $cccc_width_high; ?>" />
+    <p class="description">Format of floating integers to hundredth degree (#.##)</p>
+
+    <!-- Hub Length -->
+    <label for="cccc_hub_low">Hub Length low -> high (in inches)</label><br/>
+    <label for="cccc_hub_low">Low</label>
+    <input type="text" name="cccc_hub_low" id="cccc_hub_low" value="<?php echo $cccc_hub_low; ?>" />
+    <label for="cccc_hub_high">High</label>
+    <input type="text" name="cccc_hub_high" id="cccc_hub_high" value="<?php echo $cccc_hub_high; ?>" />
+    <p class="description">Format of floating integers with fraction decimal representation (# #/#)</p>
 <?php
 }
 
@@ -180,23 +207,6 @@ function wheels_table( $post ) {
 <?php
 }
 
-function wheels_capacity( $post ) {
-    global $post;
-    $values = get_post_custom( $post->ID );  
-    $cccc_capacity = isset( $values['cccc_capacity'] ) ? esc_attr( $values['cccc_capacity'][0] ) : '';
-
-// We'll use this nonce field later on when saving.  
-    wp_nonce_field( 'my_meta_box_nonce', 'meta_box_nonce' ); 
-        $example_stored_meta = get_post_meta( $post->ID );
-    ?>  
-<p>
-    <label for="cccc_capacity">Enter the capcity for the wheel (in lbs)</label>
-    <input type="text" name="cccc_capacity" id="cccc_capacity" value="<?php echo $cccc_capacity; ?>" /><br/>
-    <span class="description">Whatever format desired. Standard would be with comma (##,###).
-</p>
-<?php
-}
-
 function wheels_img( $post ) {
     global $post;
     $values = get_post_custom( $post->ID );  
@@ -208,7 +218,7 @@ function wheels_img( $post ) {
     ?>  
 <p>
     <label for="cccc_img">Image</label>
-    <?php media_uploader('cccc_img', $cccc_img); ?>
+    <?php backend_media_uploader('cccc_img', $cccc_img); ?>
     <span class="description">Image to display on single wheel page.<br/>
         Needs to be in "gif" format<br/>
         Minimum resolution: 250X500px
@@ -228,7 +238,7 @@ function wheels_archive_img( $post ) {
     ?>  
 <p>
     <label for="cccc_archive_img">Image</label>
-    <?php media_uploader('cccc_archive_img', $cccc_archive_img); ?>
+    <?php backend_media_uploader('cccc_archive_img', $cccc_archive_img); ?>
     <span class="description">Image to display on wheel archive page.<br/>
         Needs to be in "jpg" format<br/>
         Minimum resolution: 400px
@@ -237,12 +247,69 @@ function wheels_archive_img( $post ) {
 <?php
 }
 
-function media_uploader($meta_name, $meta_value){
-    $image = wp_get_attachment_image_src($meta_value, 'thumb'); ?>
-    <div class="media-upload">
-        <img class="preview" src="<?php echo $image[0]; ?>" />
-        <div style="clear:both;"></div>
-        <input type="hidden" class="media" name="<?php echo $meta_name; ?>" id="<?php echo $meta_name; ?>" value="<?php echo $meta_value; ?>" />
-        <input type="button" class="button" value="Choose or Upload Image" onclick="media_uploader(this)" /><br/>
-    </div>
-<?php }
+function materials_select($meta_value){
+    $materials = array(
+        'Polyurethanes' => 'optgroup',
+
+        // Polyurethane
+        'Polyurethane' => 'option',
+        'Soft Polyurethane' => 'option',
+        'T/R Polyurethane' => 'option',
+        'H.D. T/R Polyurethane' => 'option',
+        'T/R 95 Polyurethane' => 'option',
+        'HPPT Polyurethane' => 'option',
+        'H.D. Polyurethane' => 'option',
+        '70D H.D. Polyurethane' => 'option',
+        'Polyurethane Press On' => 'option',
+
+        'Polyurethanes End' => 'end-optgroup',
+        'Soft Materials' => 'optgroup',
+
+        // Soft Materials
+        'Solid Elastomer' => 'option',
+        'Softech' => 'option',
+        'Mold On Rubber' => 'option',
+        'Import Mold On Rubber' => 'option',
+
+        'Soft Materials End' => 'end-optgroup',
+        'Harder Materials' => 'optgroup',
+
+        // Harder Materials
+        'Envirothane' => 'option',
+        'Phenolic Resin' => 'option',
+        'H.D. Phenolic Resin' => 'option',
+        'Laminated Phenolic' => 'option',
+        'Ductile Iron' => 'option',
+        'Forged Steel' => 'option',
+        'H.D. Forged Steel' => 'option',
+        'Cast Iron' => 'option',
+        'Import Cast Iron' => 'option',
+        'Steel' => 'option',
+
+        'Harder Materials End' => 'end-optgroup',
+        'Other Materials' => 'optgroup',
+
+        // Other Materials
+        'Pneumatic Wheel' => 'option',
+
+        'Other Materials End' => 'end-optgroup'
+    );
+
+    echo '<select class="chosen" name="cccc_materials[]" multiple>';
+    foreach ($materials as $material => $type):
+        // Check to see if current material is selected
+        if (in_array($material, $meta_value))
+            $selected = true;
+        else 
+            $selected = false;
+
+        if ($type == 'option')
+            echo '<option value="'.$material.'" '.($selected ? 'selected' : '').'>'.$material.'</option>';
+        elseif ($type == 'optgroup')
+            echo '<optgroup label="'.$material.'">';
+        elseif ($type == 'end-optgroup')
+            echo '</optgroup>';
+    endforeach;
+    echo '</select>';
+}
+?>

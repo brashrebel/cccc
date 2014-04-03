@@ -41,12 +41,20 @@ function casters_meta_box_save( $post_id ) {
         update_post_meta( $post_id, 'cccc_archive_img', wp_kses( $_POST['cccc_archive_img'], $allowed ) ); 
     if( isset( $_POST['cccc_capacity'] ) )  
         update_post_meta( $post_id, 'cccc_capacity', wp_kses( $_POST['cccc_capacity'], $allowed ) ); 
-    if( isset( $_POST['cccc_desc1'] ) )  
-        update_post_meta( $post_id, 'cccc_desc1', wp_kses( $_POST['cccc_desc1'], $allowed ) ); 
-    if( isset( $_POST['cccc_desc2'] ) )  
-        update_post_meta( $post_id, 'cccc_desc2', wp_kses( $_POST['cccc_desc2'], $allowed ) ); 
-    if( isset( $_POST['cccc_desc3'] ) )  
-        update_post_meta( $post_id, 'cccc_desc3', wp_kses( $_POST['cccc_desc3'], $allowed ) ); 
+    if( isset( $_POST['cccc_diameter_low'] ) )  
+        update_post_meta( $post_id, 'cccc_diameter_low', wp_kses( $_POST['cccc_diameter_low'], $allowed ) ); 
+    if( isset( $_POST['cccc_diameter_high'] ) )  
+        update_post_meta( $post_id, 'cccc_diameter_high', wp_kses( $_POST['cccc_diameter_high'], $allowed ) ); 
+    if( isset( $_POST['cccc_width_low'] ) )  
+        update_post_meta( $post_id, 'cccc_width_low', wp_kses( $_POST['cccc_width_low'], $allowed ) ); 
+    if( isset( $_POST['cccc_width_high'] ) )  
+        update_post_meta( $post_id, 'cccc_width_high', wp_kses( $_POST['cccc_width_high'], $allowed ) ); 
+    if( isset( $_POST['cccc_hub_low'] ) )  
+        update_post_meta( $post_id, 'cccc_hub_low', wp_kses( $_POST['cccc_hub_low'], $allowed ) ); 
+    if( isset( $_POST['cccc_hub_high'] ) )  
+        update_post_meta( $post_id, 'cccc_hub_high', wp_kses( $_POST['cccc_hub_high'], $allowed ) ); 
+    if( isset( $_POST['cccc_materials'] ) )  
+        update_post_meta( $post_id, 'cccc_materials', $_POST['cccc_materials']); 
     if( isset( $_POST['cccc_type_or_series'] ) )  
         update_post_meta( $post_id, 'cccc_type_or_series', wp_kses( $_POST['cccc_type_or_series'], $allowed ) ); 
 }  

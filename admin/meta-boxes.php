@@ -9,7 +9,7 @@ Add casters meta boxes
 // Image for single page
 $casters_meta_img = array(
     'id' => 'casters-img',
-    'title' => 'Caster Image<b style="color:#f00;">*</b>',
+    'title' => 'Caster Image for Single Page <small style="color:#f00;">(Required)</small>',
     'page' => 'casters',
     'context' => 'side',
     'priority' => 'default'
@@ -25,7 +25,7 @@ function casters_meta_img( $post ) {
 // Image for archive page
 $casters_meta_archive_img = array(
     'id' => 'casters-archive-img',
-    'title' => 'Caster Image for Archive Page<b style="color:#f00;">*</b>',
+    'title' => 'Caster Image for Archive Page <small style="color:#f00;">(Required)</small>',
     'page' => 'casters',
     'context' => 'side',
     'priority' => 'default'
@@ -41,7 +41,7 @@ function casters_meta_archive_img( $post ) {
 // Series
 $casters_meta_info = array(
     'id' => 'casters-info',
-    'title' => 'Caster Table Lookup<b style="color:#f00;">*</b>',
+    'title' => 'Caster Table Lookup',
     'page' => 'casters',
     'context' => 'normal',
     'priority' => 'default'
@@ -57,7 +57,7 @@ function casters_meta_info( $post ) {
 // Type or Series
 $casters_meta_type_or_series = array(
     'id' => 'casters-type-or-series',
-    'title' => 'Caster Type or Series<b style="color:#f00;">*</b>',
+    'title' => 'Caster Type or Series <small style="color:#f00;">(Required)</small>',
     'page' => 'casters',
     'context' => 'side',
     'priority' => 'default'
@@ -73,7 +73,7 @@ function casters_meta_type_or_series( $post ) {
 // Description
 $casters_meta_description = array(
     'id' => 'casters-description',
-    'title' => 'Caster Description<b style="color:#f00;">*</b>',
+    'title' => 'Caster Information <small style="color:#f00;">(Required)</small>',
     'page' => 'casters',
     'context' => 'normal',
     'priority' => 'default'
@@ -89,18 +89,11 @@ function casters_meta_description( $post ) {
 // Capacity
 $casters_meta_capacity = array(
     'id' => 'casters-capacity',
-    'title' => 'Caster Capacity<b style="color:#f00;">*</b>',
+    'title' => 'Caster Capacity <small style="color:#f00;">(Required)</small>',
     'page' => 'casters',
     'context' => 'normal',
     'priority' => 'default'
 );
-
-add_action('add_meta_boxes', 'casters_meta_capacity' );
-
-function casters_meta_capacity( $post ) {
-    global $casters_meta_capacity;
-    add_meta_box($casters_meta_capacity['id'], $casters_meta_capacity['title'], 'casters_capacity', $casters_meta_capacity['page'], $casters_meta_capacity['context'], $casters_meta_capacity['priority']);
-}
 
 /*-----------------
 Add wheels meta box
@@ -108,7 +101,7 @@ Add wheels meta box
 // Image for single page
 $wheels_meta_img = array(
     'id' => 'wheels-img',
-    'title' => 'Wheel Image<b style="color:#f00;">*</b>',
+    'title' => 'Wheel Image for Single Page<small style="color:#f00;">(Required)</small>',
     'page' => 'wheels',
     'context' => 'side',
     'priority' => 'default'
@@ -124,7 +117,7 @@ function wheels_meta_img( $post ) {
 // Image for archive page
 $wheels_meta_archive_img = array(
     'id' => 'wheels-archive-img',
-    'title' => 'Wheel Image for Archive Page<b style="color:#f00;">*</b>',
+    'title' => 'Wheel Image for Archive Page <small style="color:#f00;">(Required)</small>',
     'page' => 'wheels',
     'context' => 'side',
     'priority' => 'default'
@@ -140,7 +133,7 @@ function wheels_meta_archive_img( $post ) {
 // Table
 $wheels_meta_table = array(
     'id' => 'wheels-table',
-    'title' => 'Wheel Table<b style="color:#f00;">*</b>',
+    'title' => 'Wheel Table <small style="color:#f00;">(Required)</small>',
     'page' => 'wheels',
     'context' => 'side',
     'priority' => 'default'
@@ -156,7 +149,7 @@ function wheels_meta_table( $post ) {
 // Description
 $wheels_meta_description = array(
     'id' => 'wheels-description',
-    'title' => 'Wheel Description<b style="color:#f00;">*</b>',
+    'title' => 'Wheel Description <small style="color:#f00;">(Required)</small>',
     'page' => 'wheels',
     'context' => 'normal',
     'priority' => 'default'
@@ -172,16 +165,9 @@ function wheels_meta_description( $post ) {
 // Capacity
 $wheels_meta_capacity = array(
     'id' => 'wheels-capacity',
-    'title' => 'Wheel Capacity<b style="color:#f00;">*</b>',
+    'title' => 'Wheel Capacity <small style="color:#f00;">(Required)</small>',
     'page' => 'wheels',
     'context' => 'normal',
     'priority' => 'default'
 );
-
-add_action('add_meta_boxes', 'wheels_meta_capacity' );
-
-function wheels_meta_capacity( $post ) {
-    global $wheels_meta_capacity;
-    add_meta_box($wheels_meta_capacity['id'], $wheels_meta_capacity['title'], 'wheels_capacity', $wheels_meta_capacity['page'], $wheels_meta_capacity['context'], $wheels_meta_capacity['priority']);
-}
 ?>
