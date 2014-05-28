@@ -158,7 +158,7 @@ function casters_shortcode_dev($atts) {
 
     // Caster image
     echo '<div class="cccc-item-image">';
-    echo '<img src="'.$image[0].'" />';
+    echo '<img onload="cccc_remove_loading()" src="'.$image[0].'" />';
     echo '</div>';
 
     // All caster information

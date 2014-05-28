@@ -29,9 +29,7 @@ function cccc_enqueue_admin_files(){
 add_action('admin_enqueue_scripts', 'cccc_enqueue_admin_files');
 
 function cccc_enqueue_files(){
-  if (is_page('casters') || is_page('wheels')):
-    wp_enqueue_script( 'cccc_script' );
-    wp_enqueue_style( 'cccc_style' );
-  endif;
+  wp_enqueue_script( 'cccc_script' );
+  wp_enqueue_style( 'cccc_style' );
 }
 add_action( 'wp_enqueue_scripts', 'cccc_enqueue_files' );

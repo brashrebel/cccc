@@ -17,6 +17,13 @@ function cccc_change(el){
   jQuery('.cccc-item-hub .change').html(hub);
   jQuery('.cccc-item-materials .change').html(materials);
   jQuery('.cccc-view-item a').attr('href', link);
+
+  // Add loading overlay
+  jQuery('.cccc-item-image').append('<div class="cccc-loading">Loading...</div>');
+}
+
+function cccc_remove_loading(){
+  jQuery('.cccc-loading').remove();
 }
 
 function cccc_transition(type, dir){

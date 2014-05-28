@@ -207,6 +207,29 @@ function wheels_table( $post ) {
 <?php
 }
 
+function wheels_info( $post ) {
+    global $post;
+    $values = get_post_custom( $post->ID );
+    $cccc_series = isset( $values['cccc_series'] ) ? esc_attr( $values['cccc_series'][0] ) : '';
+    $cccc_tabs = isset( $values['cccc_tabs'] ) ? esc_attr( $values['cccc_tabs'][0] ) : '';
+
+// We'll use this nonce field later on when saving.  
+    wp_nonce_field( 'my_meta_box_nonce', 'meta_box_nonce' ); 
+        $example_stored_meta = get_post_meta( $post->ID );
+    ?>  
+<p>
+    <span class="description">Use this section to enter data for looking up the series table.</span><br/>
+    <span class="description">In order to look up series, please log in as an admin (not through wordpress, through the configurator) and select "Key Words" from the "Super User Menu". From here you can view and search for seriess. <strong>It must be the series code, not the series itself. Example: For Cast Iron, input "WCI".</strong></span><br/>
+    <label for="cccc_series">Enter the Series Copde</label><br/>
+    <input style="width:250px;" type="text" name="cccc_series" id="cccc_series" value="<?php echo $cccc_series; ?>" /><br/>
+    <label for="cccc_tabs">Show tabs?</label>
+    <input type="hidden" name="cccc_tabs" value="0">
+    <input type="checkbox" name="cccc_tabs" id="cccc_tabs" <?php checked($cccc_tabs); ?> value="1" /><br/>
+    <span class="description">If checked, tabs will show. Otherwise, they won't.</span>
+</p>
+<?php
+}
+
 function wheels_img( $post ) {
     global $post;
     $values = get_post_custom( $post->ID );  

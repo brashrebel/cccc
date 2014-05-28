@@ -139,12 +139,28 @@ $wheels_meta_table = array(
     'priority' => 'default'
 );
 
-add_action('add_meta_boxes', 'wheels_meta_table' );
+// add_action('add_meta_boxes', 'wheels_meta_table' );
 
 function wheels_meta_table( $post ) {
     global $wheels_meta_table;
     add_meta_box($wheels_meta_table['id'], $wheels_meta_table['title'], 'wheels_table', $wheels_meta_table['page'], $wheels_meta_table['context'], $wheels_meta_table['priority']);
 }
+// Series
+$wheels_meta_info = array(
+    'id' => 'wheels-info',
+    'title' => 'Wheel Table Lookup',
+    'page' => 'wheels',
+    'context' => 'normal',
+    'priority' => 'default'
+);
+
+add_action('add_meta_boxes', 'wheels_meta_info' );
+
+function wheels_meta_info( $post ) {
+    global $wheels_meta_info;
+    add_meta_box($wheels_meta_info['id'], $wheels_meta_info['title'], 'wheels_info', $wheels_meta_info['page'], $wheels_meta_info['context'], $wheels_meta_info['priority']);
+}
+
 
 // Description
 $wheels_meta_description = array(
